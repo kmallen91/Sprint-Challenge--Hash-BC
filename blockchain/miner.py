@@ -29,7 +29,6 @@ def proof_of_work(last_proof):
     hash_str = f'{last_proof}'.encode()
     last_hash = hashlib.sha256(hash_str).hexdigest()
 
-    proof = 0
     while valid_proof(last_hash, proof) is False:
         proof += random.randint(3000, 1000000)
 
@@ -50,7 +49,7 @@ def valid_proof(last_hash, proof):
     guess = f'{proof}'.encode()
     guess_hash = hashlib.sha256(guess).hexdigest()
 
-    return guess_hash[6:] == last_hash[:-6]
+    return guess_hash[:6] == last_hash[-6:]
 
 
 if __name__ == '__main__':
